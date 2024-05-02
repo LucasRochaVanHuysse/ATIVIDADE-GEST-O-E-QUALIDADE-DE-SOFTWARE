@@ -1,0 +1,178 @@
+import java.util.Scanner;
+ 
+public class CadastroVeiculos {
+	public static void main(String[] args) {
+    	Scanner scanner = new Scanner(System.in);
+ 
+    	// Criando um vetor de cadastro de veículos
+    	Veiculo[] cadastro = new Veiculo[100]; // Supondo um limite máximo de 100 veículos
+ 
+    	int opcao;
+    	do {
+        	// Exibe o menu de opções
+            System.out.println("\n*** MENU DE OPÇÕES ***");
+            System.out.println("1. Cadastrar veículo");
+            System.out.println("2. Pesquisar veículo por chassi ou placa");
+            System.out.println("3. Atualizar veículo por chassi ou placa");
+            System.out.println("4. Excluir veículo por chassi ou placa");
+            System.out.println("5. Imprimir vetor de cadastro");
+            System.out.println("6. Sair");
+            System.out.print("Escolha uma opção: ");
+        	opcao = scanner.nextInt();
+ 
+        	switch (opcao) {
+            	case 1:
+                    cadastrarVeiculo(scanner, cadastro);
+                    break;
+            	case 2:
+                    pesquisarVeiculo(scanner, cadastro);
+                    break;
+            	case 3:
+                    atualizarVeiculo(scanner, cadastro);
+                    break;
+            	case 4:
+                    excluirVeiculo(scanner, cadastro);
+                    break;
+            	case 5:
+                    imprimirCadastro(cadastro);
+                    break;
+            	case 6:
+                    System.out.println("Encerrando o programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Escolha uma opção válida.");
+        	}
+    	} while (opcao != 6);
+ 
+        scanner.close();
+	}
+ 
+	// Método para cadastrar um veículo no vetor de cadastro
+	public static void cadastrarVeiculo(Scanner scanner, Veiculo[] cadastro) {
+    	for (int i = 0; i < cadastro.length; i++) {
+        	if (cadastro[i] == null) { // Verifica se a posição no vetor está vazia
+ 	           System.out.println("\nCADASTRO DE VEÍCULO");
+                System.out.print("Número do chassi: ");
+            	String chassi = scanner.next();
+                System.out.print("Placa: ");
+            	String placa = scanner.next();
+	            System.out.print("Marca: ");
+            	String marca = scanner.next();
+                System.out.print("Modelo: ");
+            	String modelo = scanner.next();
+                System.out.print("Ano: ");
+            	int ano = scanner.nextInt();
+ 
+                cadastro[i] = new Veiculo(chassi, placa, marca, modelo, ano); // Cria um novo veículo e adiciona ao vetor
+                System.out.println("Veículo cadastrado com sucesso!");
+                return;
+        	}
+    	}
+        System.out.println("O vetor de cadastro está cheio. Não é possível cadastrar mais veículos.");
+	}
+ 
+	// Método para pesquisar um veículo por chassi ou placa
+	public static void pesquisarVeiculo(Scanner scanner, Veiculo[] cadastro) {
+        System.out.println("\nPESQUISA DE VEÍCULO");
+        System.out.print("Digite o número do chassi ou placa do veículo: ");
+    	String termo = scanner.next();
+ 
+    	for (Veiculo veiculo : cadastro) {
+        	if (veiculo != null && (veiculo.getChassi().equals(termo) || veiculo.getPlaca().equals(termo))) {
+                System.out.println("Veículo encontrado:");
+                System.out.println(veiculo);
+            	return;
+        	}
+    	}
+        System.out.println("Veículo não encontrado.");
+	}
+ 
+	// Método para atualizar um veículo por chassi ou placa
+	public static void atualizarVeiculo(Scanner scanner, Veiculo[] cadastro) {
+        System.out.println("\nATUALIZAÇÃO DE VEÍCULO");
+        System.out.print("Digite o número do chassi ou placa do veículo que deseja atualizar: ");
+    	String termo = scanner.next();
+ 
+    	for (int i = 0; i < cadastro.length; i++) {
+        	if (cadastro[i] != null && (cadastro[i].getChassi().equals(termo) || cadastro[i].getPlaca().equals(termo))) {
+                System.out.println("Veículo encontrado:");
+  	          System.out.println(cadastro[i]);
+ 
+                System.out.println("Digite os novos dados do veículo:");
+                System.out.print("Número do chassi: ");
+            	String chassi = scanner.next();
+                System.out.print("Placa: ");
+            	String placa = scanner.next();
+                System.out.print("Marca: ");
+            	String marca = scanner.next();
+                System.out.print("Modelo: ");
+            	String modelo = scanner.next();
+         	   System.out.print("Ano: ");
+            	int ano = scanner.nextInt();
+ 
+                cadastro[i] = new Veiculo(chassi, placa, marca, modelo, ano); // Atualiza os dados do veículo
+                System.out.println("Veículo atualizado com sucesso!");
+                return;
+        	}
+    	}
+        System.out.println("Veículo não encontrado.");
+	}
+ 
+	// Método para excluir um veículo por chassi ou placa
+	public static void excluirVeiculo(Scanner scanner, Veiculo[] cadastro) {
+        System.out.println("\nEXCLUSÃO DE VEÍCULO");
+        System.out.print("Digite o número do chassi ou placa do veículo que deseja excluir: ");
+    	String termo = scanner.next();
+ 
+    	for (int i = 0; i < cadastro.length; i++) {
+        	if (cadastro[i] != null && (cadastro[i].getChassi().equals(termo) || cadastro[i].getPlaca().equals(termo))) {
+                System.out.println("Veículo encontrado:");
+         	   System.out.println(cadastro[i]);
+                cadastro[i] = null; // Define a posição no vetor como null para excluir o veículo
+                System.out.println("Veículo excluído com sucesso!");
+                return;
+        	}
+    	}
+ 	   System.out.println("Veículo não encontrado.");
+	}
+ 
+	// Método para imprimir o vetor de cadastro de veículos
+	public static void imprimirCadastro(Veiculo[] cadastro) {
+        System.out.println("\nVETOR DE CADASTRO DE VEÍCULOS");
+    	for (Veiculo veiculo : cadastro) {
+        	if (veiculo != null) {
+                System.out.println(veiculo);
+        	}
+    	}
+	}
+}
+ 
+// Classe Veiculo com propriedades privadas e método toString para impressão
+class Veiculo {
+	private String chassi;
+	private String placa;
+	private String marca;
+	private String modelo;
+	private int ano;
+ 
+	public Veiculo(String chassi, String placa, String marca, String modelo, int ano) {
+    	this.chassi = chassi;
+    	this.placa = placa;
+    	this.marca = marca;
+    	this.modelo = modelo;
+    	this.ano = ano;
+	}
+ 
+	public String getChassi() {
+    	return chassi;
+	}
+ 
+	public String getPlaca() {
+    	return placa;
+	}
+ 
+	@Override
+	public String toString() {
+    	return "Chassi: " + chassi + ", Placa: " + placa + ", Marca: " + marca + ", Modelo: " + modelo + ", Ano: " + ano;
+	}
+}
