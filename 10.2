@@ -1,0 +1,310 @@
+import java.util.Scanner;
+ 
+public class CadastroPessoas {
+	public static void main(String[] args) {
+    	Scanner scanner = new Scanner(System.in);
+    	Cadastro cadastro = new Cadastro();
+ 
+    	int opcao;
+    	do {
+        	// Exibe o menu de opções
+            System.out.println("\n*** MENU DE OPÇÕES ***");
+            System.out.println("1. Cadastrar pessoa física");
+            System.out.println("2. Cadastrar pessoa jurídica");
+            System.out.println("3. Imprimir todas as pessoas");
+            System.out.println("4. Imprimir apenas pessoas físicas");
+            System.out.println("5. Imprimir apenas pessoas jurídicas");
+            System.out.println("6. Pesquisar por CPF ou CNPJ");
+            System.out.println("7. Atualizar por CPF ou CNPJ");
+            System.out.println("8. Excluir por CPF ou CNPJ");
+            System.out.println("9. Sair");
+            System.out.print("Escolha uma opção: ");
+        	opcao = scanner.nextInt();
+ 
+        	switch (opcao) {
+     	       case 1:
+                    cadastrarPessoaFisica(scanner, cadastro);
+                    break;
+            	case 2:
+                    cadastrarPessoaJuridica(scanner, cadastro);
+                    break;
+            	case 3:
+                    cadastro.imprimirTodasPessoas();
+                    break;
+            	case 4:
+                    cadastro.imprimirPessoasFisicas();
+                    break;
+            	case 5:
+                	cadastro.imprimirPessoasJuridicas();
+                    break;
+            	case 6:
+                    pesquisarPorCpfOuCnpj(scanner, cadastro);
+                    break;
+            	case 7:
+                    atualizarPorCpfOuCnpj(scanner, cadastro);
+                    break;
+            	case 8:
+                    excluirPorCpfOuCnpj(scanner, cadastro);
+                    break;
+            	case 9:
+                    System.out.println("Encerrando o programa...");
+                	break;
+                default:
+                    System.out.println("Opção inválida. Escolha uma opção válida.");
+        	}
+    	} while (opcao != 9);
+ 
+        scanner.close();
+	}
+ 
+	// Método para cadastrar uma pessoa física
+	public static void cadastrarPessoaFisica(Scanner scanner, Cadastro cadastro) {
+        System.out.println("\nCADASTRO DE PESSOA FÍSICA");
+        System.out.print("Nome: ");
+    	String nome = scanner.next();
+        System.out.print("CPF: ");
+    	String cpf = scanner.next();
+    	
+    	PessoaFisica pessoaFisica = new PessoaFisica(nome, cpf);
+        cadastro.cadastrarPessoaFisica(pessoaFisica);
+        System.out.println("Pessoa física cadastrada com sucesso!");
+	}
+ 
+	// Método para cadastrar uma pessoa jurídica
+	public static void cadastrarPessoaJuridica(Scanner scanner, Cadastro cadastro) {
+        System.out.println("\nCADASTRO DE PESSOA JURÍDICA");
+        System.out.print("Nome: ");
+    	String nome = scanner.next();
+        System.out.print("CNPJ: ");
+    	String cnpj = scanner.next();
+    	
+    	PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, cnpj);
+        cadastro.cadastrarPessoaJuridica(pessoaJuridica);
+        System.out.println("Pessoa jurídica cadastrada com sucesso!");
+	}
+ 
+	// Método para pesquisar por CPF ou CNPJ
+	public static void pesquisarPorCpfOuCnpj(Scanner scanner, Cadastro cadastro) {
+        System.out.println("\nPESQUISA POR CPF OU CNPJ");
+        System.out.print("Digite o CPF ou CNPJ: ");
+    	String cpfOuCnpj = scanner.next();
+ 
+    	cadastro.pesquisarPorCpfOuCnpj(cpfOuCnpj);
+	}
+ 
+	// Método para atualizar por CPF ou CNPJ
+	public static void atualizarPorCpfOuCnpj(Scanner scanner, Cadastro cadastro) {
+        System.out.println("\nATUALIZAÇÃO POR CPF OU CNPJ");
+        System.out.print("Digite o CPF ou CNPJ da pessoa que deseja atualizar: ");
+    	String cpfOuCnpj = scanner.next();
+ 
+        cadastro.atualizarPorCpfOuCnpj(cpfOuCnpj);
+	}
+ 
+	// Método para excluir por CPF ou CNPJ
+	public static void excluirPorCpfOuCnpj(Scanner scanner, Cadastro cadastro) {
+        System.out.println("\nEXCLUSÃO POR CPF OU CNPJ");
+        System.out.print("Digite o CPF ou CNPJ da pessoa que deseja excluir: ");
+    	String cpfOuCnpj = scanner.next();
+ 
+        cadastro.excluirPorCpfOuCnpj(cpfOuCnpj);
+	}
+}
+ 
+// Classe PessoaFisica com atributos privados e métodos de acesso
+class PessoaFisica {
+	private String nome;
+	private String cpf;
+ 
+	public PessoaFisica(String nome, String cpf) {
+    	this.nome = nome;
+    	this.cpf = cpf;
+	}
+ 
+	public String getNome() {
+    	return nome;
+	}
+ 
+	public void setNome(String nome) {
+    	this.nome = nome;
+	}
+ 
+	public String getCpf() {
+    	return cpf;
+	}
+ 
+	public void setCpf(String cpf) {
+        this.cpf = cpf;
+	}
+ 
+	@Override
+	public String toString() {
+    	return "Nome: " + nome + ", CPF: " + cpf;
+	}
+}
+ 
+// Classe PessoaJuridica com atributos privados e métodos de acesso
+class PessoaJuridica {
+	private String nome;
+	private String cnpj;
+ 
+	public PessoaJuridica(String nome, String cnpj) {
+    	this.nome = nome;
+    	this.cnpj = cnpj;
+	}
+ 
+	public String getNome() {
+    	return nome;
+	}
+ 
+	public void setNome(String nome) {
+    	this.nome = nome;
+	}
+ 
+	public String getCnpj() {
+    	return cnpj;
+	}
+ 
+	public void setCnpj(String cnpj) {
+    	this.cnpj = cnpj;
+	}
+ 
+	@Override
+	public String toString() {
+    	return "Nome: " + nome + ", CNPJ: " + cnpj;
+	}
+}
+ 
+// Classe Cadastro para gerenciar o cadastro de pessoas físicas e jurídicas
+class Cadastro {
+	private PessoaFisica[] pessoasFisicas;
+	private PessoaJuridica[] pessoasJuridicas;
+	private int indicePf;
+	private int indicePj;
+ 
+	public Cadastro() {
+    	pessoasFisicas = new PessoaFisica[100]; // Vetor de cadastro de pessoas físicas
+        pessoasJuridicas = new PessoaJuridica[100]; // Vetor de cadastro de pessoas jurídicas
+    	indicePf = 0;
+    	indicePj = 0;
+	}
+ 
+	public void cadastrarPessoaFisica(PessoaFisica pessoaFisica) {
+        pessoasFisicas[indicePf++] = pessoaFisica;
+	}
+ 
+	public void cadastrarPessoaJuridica(PessoaJuridica pessoaJuridica) {
+        pessoasJuridicas[indicePj++] = pessoaJuridica;
+	}
+ 
+	public void imprimirTodasPessoas() {
+        System.out.println("\nPESSOAS FÍSICAS:");
+    	for (int i = 0; i < indicePf; i++) {
+            System.out.println(pessoasFisicas[i]);
+    	}
+ 
+        System.out.println("\nPESSOAS JURÍDICAS:");
+    	for (int i = 0; i < indicePj; i++) {
+            System.out.println(pessoasJuridicas[i]);
+    	}
+	}
+ 
+	public void imprimirPessoasFisicas() {
+        System.out.println("\nPESSOAS FÍSICAS:");
+    	for (int i = 0; i < indicePf; i++) {
+            System.out.println(pessoasFisicas[i]);
+    	}
+	}
+ 
+	public void imprimirPessoasJuridicas() {
+        System.out.println("\nPESSOAS JURÍDICAS:");
+    	for (int i = 0; i < indicePj; i++) {
+            System.out.println(pessoasJuridicas[i]);
+    	}
+	}
+ 
+	public void pesquisarPorCpfOuCnpj(String cpfOuCnpj) {
+        System.out.println("\nPESQUISA POR CPF OU CNPJ");
+    	for (int i = 0; i < indicePf; i++) {
+        	if (pessoasFisicas[i].getCpf().equals(cpfOuCnpj)) {
+                System.out.println("Pessoa física encontrada:");
+                System.out.println(pessoasFisicas[i]);
+                return;
+        	}
+    	}
+    	for (int i = 0; i < indicePj; i++) {
+        	if (pessoasJuridicas[i].getCnpj().equals(cpfOuCnpj)) {
+                System.out.println("Pessoa jurídica encontrada:");
+                System.out.println(pessoasJuridicas[i]);
+            	return;
+        	}
+    	}
+        System.out.println("Nenhuma pessoa encontrada com o CPF ou CNPJ informado.");
+	}
+ 
+	public void atualizarPorCpfOuCnpj(String cpfOuCnpj) {
+    	for (int i = 0; i < indicePf; i++) {
+        	if (pessoasFisicas[i].getCpf().equals(cpfOuCnpj)) {
+                System.out.println("Pessoa física encontrada:");
+                System.out.println(pessoasFisicas[i]);
+ 
+                System.out.println("Digite os novos dados da pessoa física:");
+                System.out.print("Nome: ");
+            	String nome = new Scanner(System.in).next();
+                pessoasFisicas[i].setNome(nome);
+                System.out.print("CPF: ");
+            	String cpf = new Scanner(System.in).next();
+                pessoasFisicas[i].setCpf(cpf);
+                System.out.println("Pessoa física atualizada com sucesso!");
+                return;
+        	}
+    	}
+    	for (int i = 0; i < indicePj; i++) {
+        	if (pessoasJuridicas[i].getCnpj().equals(cpfOuCnpj)) {
+                System.out.println("Pessoa jurídica encontrada:");
+                System.out.println(pessoasJuridicas[i]);
+ 
+                System.out.println("Digite os novos dados da pessoa jurídica:");
+                System.out.print("Nome: ");
+            	String nome = new Scanner(System.in).next();
+                pessoasJuridicas[i].setNome(nome);
+                System.out.print("CNPJ: ");
+            	String cnpj = new Scanner(System.in).next();
+                pessoasJuridicas[i].setCnpj(cnpj);
+                System.out.println("Pessoa jurídica atualizada com sucesso!");
+                return;
+        	}
+    	}
+        System.out.println("Nenhuma pessoa encontrada com o CPF ou CNPJ informado.");
+	}
+ 
+	public void excluirPorCpfOuCnpj(String cpfOuCnpj) {
+    	for (int i = 0; i < indicePf; i++) {
+        	if (pessoasFisicas[i].getCpf().equals(cpfOuCnpj)) {
+                System.out.println("Pessoa física encontrada:");
+                System.out.println(pessoasFisicas[i]);
+                System.out.println("Pessoa física excluída com sucesso!");
+            	// Remove a pessoa física do vetor
+            	for (int j = i; j < indicePf - 1; j++) {
+                    pessoasFisicas[j] = pessoasFisicas[j + 1];
+            	}
+                indicePf--;
+                return;
+        	}
+    	}
+    	for (int i = 0; i < indicePj; i++) {
+        	if (pessoasJuridicas[i].getCnpj().equals(cpfOuCnpj)) {
+                System.out.println("Pessoa jurídica encontrada:");
+                System.out.println(pessoasJuridicas[i]);
+                System.out.println("Pessoa jurídica excluída com sucesso!");
+            	// Remove a pessoa jurídica do vetor
+            	for (int j = i; j < indicePj - 1; j++) {
+                    pessoasJuridicas[j] = pessoasJuridicas[j + 1];
+            	}
+                indicePj--;
+                return;
+        	}
+    	}
+        System.out.println("Nenhuma pessoa encontrada com o CPF ou CNPJ informado.");
+	}
+}
