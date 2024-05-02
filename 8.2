@@ -1,0 +1,29 @@
+import java.util.Scanner;
+ 
+public class MatrizIndices {
+	public static void main(String[] args) {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	// Criando uma matriz 5x5
+    	int[][] matriz = new int[5][5];
+    	
+    	// Lendo os elementos da matriz a partir do teclado
+        System.out.println("Digite os elementos da matriz 5x5:");
+    	for (int i = 0; i < 5; i++) {
+        	for (int j = 0; j < 5; j++) {
+                matriz[i][j] = scanner.nextInt();
+        	}
+    	}
+    	
+    	// Imprimindo os elementos onde o índice da linha é par e o índice da coluna é ímpar
+        System.out.println("Elementos nas posições onde o índice da linha é par e o índice da coluna é ímpar:");
+    	for (int i = 0; i < 5; i += 2) { // Percorre as linhas pulando de 2 em 2
+        	for (int j = 1; j < 5; j += 2) { // Percorre as colunas pulando de 2 em 2
+                System.out.print(matriz[i][j] + " ");
+            }
+    	}
+    	
+    	// Fechando o scanner
+        scanner.close();
+	}
+}
