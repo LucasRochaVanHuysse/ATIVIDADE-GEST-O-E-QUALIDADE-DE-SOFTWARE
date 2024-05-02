@@ -1,0 +1,30 @@
+import java.util.Scanner;
+ 
+public class MatrizTransposta {
+	public static void main(String[] args) {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	// Criando uma matriz 5x5
+    	int[][] matriz = new int[5][5];
+    	
+    	// Lendo os elementos da matriz a partir do teclado
+        System.out.println("Digite os elementos da matriz 5x5:");
+    	for (int i = 0; i < 5; i++) {
+        	for (int j = 0; j < 5; j++) {
+                matriz[i][j] = scanner.nextInt();
+        	}
+    	}
+    	
+    	// Imprimindo a matriz transposta
+        System.out.println("Matriz transposta:");
+    	for (int j = 0; j < 5; j++) { // Percorre as colunas da matriz original
+        	for (int i = 0; i < 5; i++) { // Percorre as linhas da matriz original
+                System.out.print(matriz[i][j] + " ");
+        	}
+            System.out.println(); // Nova linha para cada coluna da matriz transposta
+    	}
+    	
+    	// Fechando o scanner
+        scanner.close();
+	}
+}
