@@ -1,0 +1,37 @@
+import java.util.Scanner;
+ 
+public class TrocaDiagonais {
+	public static void main(String[] args) {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	// Criando uma matriz 5x5
+    	int[][] matriz = new int[5][5];
+    	
+    	// Lendo os elementos da matriz a partir do teclado
+        System.out.println("Digite os elementos da matriz 5x5:");
+    	for (int i = 0; i < 5; i++) {
+        	for (int j = 0; j < 5; j++) {
+                matriz[i][j] = scanner.nextInt();
+        	}
+    	}
+    	
+    	// Trocando os elementos da diagonal principal com os elementos da diagonal secundária
+    	for (int i = 0; i < 5; i++) {
+        	int temp = matriz[i][i]; // Armazena o elemento da diagonal principal
+            matriz[i][i] = matriz[i][4 - i]; // Substitui o elemento da diagonal principal pelo elemento da diagonal secundária
+            matriz[i][4 - i] = temp; // Substitui o elemento da diagonal secundária pelo armazenado anteriormente
+    	}
+    	
+    	// Imprimindo a matriz resultante
+    	System.out.println("Matriz resultante após a troca das diagonais:");
+    	for (int i = 0; i < 5; i++) {
+        	for (int j = 0; j < 5; j++) {
+                System.out.print(matriz[i][j] + " ");
+        	}
+            System.out.println(); // Nova linha para cada linha da matriz
+    	}
+    	
+    	// Fechando o scanner
+        scanner.close();
+	}
+}
